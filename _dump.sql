@@ -1,4 +1,4 @@
-CREATE TABLE `orders` (
+CREATE TABLE `shopify_orders` (
   `id` bigint(20) NOT NULL,
   `createdAt` datetime DEFAULT NULL,
   `number` int(11) NOT NULL,
@@ -25,5 +25,5 @@ CREATE TABLE `orders` (
 --
 -- Indexes for table `orders`
 --
-ALTER TABLE `orders`
+ALTER TABLE `shopify_orders`
   ADD PRIMARY KEY (`id`);

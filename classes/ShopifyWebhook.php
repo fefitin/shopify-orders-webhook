@@ -58,7 +58,7 @@ class ShopifyWebhook {
     $fields = array_keys($data);
     $placeholders = array_fill(0, count($fields), '?');
 
-    $query = 'INSERT INTO `orders` (' . implode(',', $fields) . ') VALUES (' . implode(',', $placeholders) . ')';
+    $query = 'INSERT INTO `shopify_orders` (' . implode(',', $fields) . ') VALUES (' . implode(',', $placeholders) . ')';
     return static::$db->prepare($query)->execute(array_values($data));
   }
 }
