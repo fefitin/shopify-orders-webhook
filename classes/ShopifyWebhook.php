@@ -69,7 +69,7 @@ class ShopifyWebhook {
         $data['id'],
         $item->product_id,
         $item->variant_id,
-        $item->title,
+        $item->name,
         $item->quantity,
         $item->sku,
         $item->price
