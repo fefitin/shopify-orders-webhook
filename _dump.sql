@@ -27,3 +27,27 @@ CREATE TABLE `shopify_orders` (
 --
 ALTER TABLE `shopify_orders`
   ADD PRIMARY KEY (`id`);
+  
+CREATE TABLE `shopify_orders_products` (
+  `id` int(11) NOT NULL,
+  `orderId` bigint(20) NOT NULL,
+  `productId` bigint(20) NOT NULL,
+  `variantId` bigint(20) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `quantity` smallint(6) NOT NULL,
+  `sku` varchar(255) NOT NULL,
+  `price` decimal(13,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `shopify_orders_products`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `orderId` (`orderId`),
+  ADD KEY `productId` (`productId`),
+  ADD KEY `variantId` (`variantId`);
+
+ALTER TABLE `shopify_orders_products`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `shopify_orders_products`
+  ADD CONSTRAINT `shopify_orders_products_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `shopify_orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
