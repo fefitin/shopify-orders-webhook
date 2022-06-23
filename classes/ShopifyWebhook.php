@@ -31,11 +31,10 @@ class ShopifyWebhook {
       'province' => $body->billing_address->province,
       'country' => $body->billing_address->country,
       'email' => $body->customer->email,
-      'dni' => static::dni($body->note_attributes),
-      'line_items' => $body->line_items
+      'dni' => static::dni($body->note_attributes)
     );
 
-    return ShopifyWebhook::insertOrder($data);
+    return ShopifyWebhook::insertOrder($data, $body->line_items);
   }
 
   static function shipping($lines) {
@@ -55,7 +54,7 @@ class ShopifyWebhook {
       return null;
   }
 
-  static function insertOrder($data) {
+  static function insertOrder($data, $products) {
     $fields = array_keys($data);
     $placeholders = array_fill(0, count($fields), '?');
 
@@ -65,7 +64,7 @@ class ShopifyWebhook {
     $query = 'INSERT INTO `shopify_orders_products` (orderId, productId, variantId, title, quantity, sku, price) VALUES (?, ?, ?, ?, ?, ?, ?)';
     $query = static::$db->prepare($query);
     
-    foreach($data->line_items as $item) {
+    foreach($products as $item) {
       $prod = array(
         $data->id,
         $item->product_id,
