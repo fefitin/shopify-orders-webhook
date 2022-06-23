@@ -66,7 +66,7 @@ class ShopifyWebhook {
     
     foreach($products as $item) {
       $prod = array(
-        $data->id,
+        $data['id'],
         $item->product_id,
         $item->variant_id,
         $item->title,
